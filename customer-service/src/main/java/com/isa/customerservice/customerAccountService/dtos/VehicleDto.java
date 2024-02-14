@@ -20,6 +20,7 @@ public class VehicleDto {
     private int numberOfSeats;
     private int numberOfDoors;
     private Double distanceLimit;
+    private String vehicleImage;
     private String ownerEmail;
 
 }

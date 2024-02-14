@@ -19,4 +19,6 @@ public class Vehicle {
     private int numberOfSeats;
     private int numberOfDoors;
     private Double distanceLimit;
+    private String vehicleImage;
+
 }

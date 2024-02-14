@@ -23,7 +23,7 @@ public class CustomerAccountController {
     }
     @PreAuthorize("hasRole('ROLE_NORMAL_USER')")
     @GetMapping("{email}")
-    public ResponseEntity<Optional<CustomerAccount>> profileDetails(@PathVariable("email") String email){
+    public ResponseEntity<Optional<CustomerAccountDto>> profileDetails(@PathVariable("email") String email){
         return ResponseEntity.ok(customerAccountService.getProfileDetails(email));
     }
 

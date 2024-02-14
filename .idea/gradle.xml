@@ -18,6 +18,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/garage" />
+            <option value="$PROJECT_DIR$/garage/application" />
+            <option value="$PROJECT_DIR$/garage/library" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -50,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
                 .build();
-        var savedUser = repository.save(user);
+        repository.save(user);
         return "User registered successfully";
     }
 

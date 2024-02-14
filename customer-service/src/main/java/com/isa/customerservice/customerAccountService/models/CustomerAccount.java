@@ -32,6 +32,16 @@ public class CustomerAccount {
     @Field
     private String email;
     @Field
+    private String address;
+    @Field
+    private int age;
+    @Field
+    private String phoneNumber;
+    @Field
+    private String gender;
+    @Field
+    private String profilePicture;
+    @Field
     private List<Vehicle> ownerVehicles;
 
     @LastModifiedBy

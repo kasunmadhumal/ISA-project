@@ -33,6 +33,7 @@ public class CustomerVehicleServiceImpl implements CustomerVehicleService {
                 .numberOfSeats(vehicleDto.getNumberOfSeats())
                 .numberOfDoors(vehicleDto.getNumberOfDoors())
                 .distanceLimit(vehicleDto.getDistanceLimit())
+                .vehicleImage(vehicleDto.getVehicleImage())
                 .build();
 
         if(existOwnerAccount.isPresent()){
@@ -60,6 +61,7 @@ public class CustomerVehicleServiceImpl implements CustomerVehicleService {
                     vehicle.setNumberOfSeats(vehicleDto.getNumberOfSeats());
                     vehicle.setNumberOfDoors(vehicleDto.getNumberOfDoors());
                     vehicle.setDistanceLimit(vehicleDto.getDistanceLimit());
+                    vehicle.setVehicleImage(vehicleDto.getVehicleImage());
                     existVehicles.add(vehicle);
                     break;
                 }
@@ -76,4 +78,22 @@ public class CustomerVehicleServiceImpl implements CustomerVehicleService {
         Optional<CustomerAccount> customerAccount = customerAccountRepository.findByEmail(email);
         return customerAccount.map(CustomerAccount::getOwnerVehicles).orElse(null);
     }
+
+    public Optional<String> deleteVehicle(String email, String vehicleNumber){
+        Optional<CustomerAccount> existOwnerAccount = customerAccountRepository.findByEmail(email);
+        if(existOwnerAccount.isPresent()){
+            List<Vehicle> existVehicles = existOwnerAccount.get().getOwnerVehicles();
+            for(Vehicle vehicle: existVehicles){
+                if(Objects.equals(vehicle.getVehicleNumber(), vehicleNumber)){
+                    existVehicles.remove(vehicle);
+                    existOwnerAccount.get().setOwnerVehicles(existVehicles);
+                    customerAccountRepository.save(existOwnerAccount.get());
+                    return Optional.of("successfully deleted");
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+
 }

@@ -4,12 +4,12 @@ package com.isa.customerservice.customerAccountService.controllers;
 import com.isa.customerservice.customerAccountService.dtos.VehicleDto;
 import com.isa.customerservice.customerAccountService.models.Vehicle;
 import com.isa.customerservice.customerAccountService.services.CustomerVehicleService;
-import com.isa.customerservice.customerAccountService.services.CustomerVehicleServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/customer-vehicle/")
@@ -37,6 +37,12 @@ public class CustomerVehicleController {
     @GetMapping("all-vehicles/{email}")
     public ResponseEntity<List<Vehicle>> getAllVehicles(@PathVariable("email") String email){
         return ResponseEntity.ok(customerVehicleService.getAllVehicles(email));
+    }
+
+    @PreAuthorize("hasRole('ROLE_NORMAL_USER')")
+    @DeleteMapping("{email}/{vehicleNumber}")
+    public ResponseEntity<Optional<String>> deleteVehicle(@PathVariable("email") String email, @PathVariable("vehicleNumber") String vehicleNumber){
+        return ResponseEntity.ok(customerVehicleService.deleteVehicle(email, vehicleNumber));
     }
 
 }

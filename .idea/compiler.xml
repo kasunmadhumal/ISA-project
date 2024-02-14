@@ -10,5 +10,12 @@
         <module name="garage.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="garage.application.main" target="17" />
+      <module name="garage.application.test" target="17" />
+      <module name="garage.library.main" target="17" />
+      <module name="garage.library.test" target="17" />
+      <module name="module-1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

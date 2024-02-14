@@ -11,5 +11,7 @@ public class CollectionNames {
 
     public static final String ACCEPTED_BOOKING_COLLECTION = "accepted_booking";
 
+    public static final String AVAILABLE_TIME_SLOT_COLLECTION = "available_time_slot";
+
 
 }

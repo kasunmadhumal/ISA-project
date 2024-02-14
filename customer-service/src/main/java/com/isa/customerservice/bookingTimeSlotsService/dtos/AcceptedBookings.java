@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AcceptedBookings {
 
+
     private String key;
 
     private String status;
@@ -38,4 +39,5 @@ public class AcceptedBookings {
     private Double timeSlotAllocatedServiceDiscount;
 
     private List<Vehicle> timeSlotAllocatedVehicles;
+
 }

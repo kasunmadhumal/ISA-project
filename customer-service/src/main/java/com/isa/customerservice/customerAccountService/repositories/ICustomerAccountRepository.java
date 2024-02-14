@@ -14,7 +14,5 @@ import static com.isa.customerservice.config.dbConfig.CollectionNames.CUSTOMER_A
 @Collection(CUSTOMER_ACCOUNT_COLLECTION)
 public interface ICustomerAccountRepository extends CouchbaseRepository<CustomerAccount, String>,
         PagingAndSortingRepository<CustomerAccount, String> {
-
     Optional<CustomerAccount> findByEmail(String email);
-
 }

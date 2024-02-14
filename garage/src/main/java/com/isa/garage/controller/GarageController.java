@@ -36,7 +36,7 @@ public class GarageController {
     @PostMapping("/update-timeslot")
     public ResponseEntity<Map<String, String>> addServiceBookingTimeslot() throws InterruptedException {
 
-        int range = 1;
+        int range = 7;
         while (range > 0) {
             boolean result = garageService.addServiceBookingTimeslot(
                  AvailableTimeSlot.builder()
