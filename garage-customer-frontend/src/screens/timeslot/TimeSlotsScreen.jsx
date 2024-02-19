@@ -7,6 +7,7 @@ import { availableTimeSlotsDetails, bookedTimeSlotsDetails, acceptedTimeSlotsDet
 import TimeSlotComponent from '../../components/timeslot/TimeSlotComponent';
 import { Spin } from 'antd';
 import VehicleComponent from '../../components/vehicleComponent/VehicleComponent';
+import Footer from '../../components/footer/Footer';
 
 
 
@@ -111,7 +112,9 @@ const TimeSlotsScreen = () => {
                                 <div className='booked-timeslots'>
                                     <div className='time-slot-header'>
                                         <h1>Booked Time Slots</h1>
-                                        {
+                                    </div>
+                                    <div className='time-slot-content'>
+                                    {
                                             bookedTimeslotWaiting && (
                                                 <Spin tip="Loading..." style={{
                                                     justifyContent : "center",
@@ -119,9 +122,7 @@ const TimeSlotsScreen = () => {
                                                 }}>
                                                     </Spin>
                                                 )
-                                        }
-                                    </div>
-                                    <div className='time-slot-content'>
+                                    }
                                     
                                     {
                                         bookedTimeSlots && bookedTimeSlots.map((timeslot, index) => {
@@ -143,7 +144,9 @@ const TimeSlotsScreen = () => {
                                 <div className='accepted-timeslots'>
                                     <div className='time-slot-header'>
                                         <h1>Accepted Time Slots</h1>
-                                        {
+                                    </div>
+                                    <div className='time-slot-content'>
+                                       {
                                             acceptedTimeslotWaiting && (
                                                 <Spin tip="Loading..." style={{
                                                     justifyContent : "center",
@@ -152,8 +155,6 @@ const TimeSlotsScreen = () => {
                                                     </Spin>
                                                 )
                                         }
-                                    </div>
-                                    <div className='time-slot-content'>
                                         {
                                             acceptedTimeSlots && acceptedTimeSlots.map((timeslot, index) => {
                                                     return (
@@ -215,6 +216,10 @@ const TimeSlotsScreen = () => {
                 )
              }    
             </div>
+            <div className='footer-container'>
+                <Footer />
+            </div>
+
         </div>
     );
 }

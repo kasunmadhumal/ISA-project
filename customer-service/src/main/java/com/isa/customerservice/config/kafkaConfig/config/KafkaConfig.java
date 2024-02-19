@@ -17,11 +17,11 @@ public class KafkaConfig {
     private String bootstrapServers;
 
     @Bean
-    public NewTopic topic2(){
+    public NewTopic topic2() {
         if (!topicExists(TopicsNames.BOOKED_TIME_SLOTS)) {
-        return TopicBuilder
-                .name(TopicsNames.BOOKED_TIME_SLOTS)
-                .build();
+            return TopicBuilder
+                    .name(TopicsNames.BOOKED_TIME_SLOTS)
+                    .build();
         }
         System.out.println("Topic already exists " + TopicsNames.BOOKED_TIME_SLOTS);
         return null;

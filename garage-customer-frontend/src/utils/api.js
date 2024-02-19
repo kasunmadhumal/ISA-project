@@ -1,6 +1,8 @@
 import axios from 'axios';
 import env from "react-dotenv";
 import  secureLocalStorage  from  "react-secure-storage"
+import { refreshToken } from './refreshToken';
+
 
 
 const api = axios.create({
@@ -8,7 +10,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
     const token = secureLocalStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -16,8 +18,30 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    // Handle errors (e.g., refresh token if token is expired)
     console.error('Error in interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if ((error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const newToken = await refreshToken();
+        if (await newToken) {
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return api(originalRequest);
+        } else {
+          console.error('Token refresh failed');
+        }
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+      }
+    }
     return Promise.reject(error);
   }
 );

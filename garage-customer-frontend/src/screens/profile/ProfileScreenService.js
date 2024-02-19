@@ -29,6 +29,8 @@ export const uploadToFirebase = async (file, setImageUploadProcess, email) => {
 
 export const userProfileDetails = async (email, setFirstName, setLastName, setAddress, setAge, setGender, setPhoneNumber, setImageUrl) => {
 
+
+
   try{
     const response = api.get(`/api/v1/customer-account/${email}`);
 
@@ -61,6 +63,7 @@ export const userProfileDetails = async (email, setFirstName, setLastName, setAd
 
 export const submitCustomerAccountDetails = async (values, email, imageUrl) => {
 
+  try{
         api.post(`/api/v1/customer-account/`,
           {
             "firstName" : values.firstname,
@@ -81,5 +84,9 @@ export const submitCustomerAccountDetails = async (values, email, imageUrl) => {
 
           console.log(error);
         });
+      } catch (error) {
+        console.error('Error submitting profile:', error);
+        throw error;
+      }
 
 }
