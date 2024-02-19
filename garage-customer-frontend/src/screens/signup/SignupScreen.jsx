@@ -1,19 +1,31 @@
-import React from 'react';
-import { Button, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Alert, Button, Form, Input, Spin } from 'antd';
 import './SignupScreen.css';
 import LockImage from '../../assets/images/lockPng.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { createAccount, onFinishFailed } from './SignupScreenService';
 
 
-const onFinish = (values) => {
-  console.log('Success:', values);
+const SignupScreen = () => {
+
+  const [signupStatus, setSignupStatus] = useState(true);
+  const [waiting, setWaiting] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values) => {
+    try {
+        setWaiting(true);
+        await createAccount(values.firstname, values.lastname, values.email, values.password, setSignupStatus, setWaiting, navigate); 
+
+    } catch (error) {
+        setWaiting(false);
+        console.error('There was an error!', error);
+    }
 };
 
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
 
-const SignupScreen = () => (
+  return ( 
+
     <>     
         <div className="signup-container">
             <div>
@@ -21,8 +33,16 @@ const SignupScreen = () => (
             </div>
             <div className='page-title'>
                 <h1 className='title-text'>Sign up</h1>
+                {
+                    waiting && (
+                    <Spin tip="Loading..." style={{marginTop: "20px"}}>
+                        <Alert type="" />
+                     </Spin>
+                    )
+                }
             </div>
             <div className="form-container">
+            {!signupStatus && <div className="error-message"> Already Have An Account</div>}
             <Form
                     name="basic"
                     labelCol={{
@@ -40,7 +60,7 @@ const SignupScreen = () => (
                     initialValues={{
                     remember: true,
                     }}
-                    onFinish={onFinish}
+                    onFinish={handleSubmit}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
@@ -49,9 +69,17 @@ const SignupScreen = () => (
                     name="firstname"
                     rules={[
                         {
-                        required: true,
-                        message: 'Please input your firstname!',
+                            required: true,
+                            message: 'Please input your first name!',
+                        },            
+                        {
+                            max: 30,
+                            message: 'First name must be at most 30 characters long!',
                         },
+                        {
+                            whitespace: false,
+                            message: 'First name must not contain any whitespace!',
+                        }
                     ]}
                     >
                     <Input />
@@ -62,8 +90,16 @@ const SignupScreen = () => (
                     name="lastname"
                     rules={[
                         {
-                        required: true,
-                        message: 'Please input your lastname!',
+                            required: true,
+                            message: 'Please input your last name!',
+                        },            
+                        {
+                            max: 30,
+                            message: 'Last name must be at most 30 characters long!',
+                        },
+                        {
+                            whitespace: false,
+                            message: 'Last name must not contain any whitespace!',
                         },
                     ]}
                     >
@@ -75,9 +111,21 @@ const SignupScreen = () => (
                     name="email"
                     rules={[
                         {
-                        required: true,
-                        message: 'Please input your email!',
+                            required: true,
+                            message: 'Please input your email!',
                         },
+                        {
+                            type: 'email',
+                            message: 'Please input a valid email!',
+                        },
+                        {
+                            max: 30,
+                            message: 'email must be at most 30 characters long!',
+                        },
+                        {
+                            whitespace: false,
+                            message: 'email must not contain any whitespace!',
+                        }
                     ]}
                     >
                     <Input />
@@ -88,9 +136,38 @@ const SignupScreen = () => (
                     name="password"
                     rules={[
                         {
-                        required: true,
-                        message: 'Please input your password!',
+                            required: true,
+                            message: 'Please input your password!',
                         },
+                        {
+                            whitespace: false,
+                            message: 'Password must not contain any whitespace!',
+                        }
+                    ]}
+                    >
+                    <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your confirm password!',
+                        },
+                        {
+                            whitespace: false,
+                            message: 'Password must not contain any whitespace!',
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(rule, value) {
+                              if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve();
+                              }
+                              return Promise.reject('The two passwords that you entered do not match!');
+                            },
+                          }),
                     ]}
                     >
                     <Input.Password />
@@ -112,13 +189,13 @@ const SignupScreen = () => (
                     style={{marginLeft: '35%'}}
                     >
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        Signup
                     </Button>
                     </Form.Item>
                 </Form>
             </div>
         </div>
     </>
-
-);
+)
+};
 export default SignupScreen;
