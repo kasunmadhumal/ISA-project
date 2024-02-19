@@ -22,6 +22,7 @@ public class KafkaConfig {
             return TopicBuilder
                     .name(TopicsNames.BOOKED_TIME_SLOTS)
                     .build();
+
         }
         System.out.println("Topic already exists " + TopicsNames.BOOKED_TIME_SLOTS);
         return null;

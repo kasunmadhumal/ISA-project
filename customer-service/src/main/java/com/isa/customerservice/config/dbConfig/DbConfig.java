@@ -46,5 +46,4 @@ public class DbConfig extends AbstractCouchbaseConfiguration {
         return ClusterEnvironment.builder().build();
     }
 
-
 }

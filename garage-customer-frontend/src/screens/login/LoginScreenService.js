@@ -12,6 +12,7 @@ export const validateLogin = async (username, password, setLoginStatus, setWaiti
 
    
    api.post(`/api/v1/auth/authenticate`,{
+
         "email": username,
         "password": password
     } )
@@ -40,3 +41,4 @@ export const validateLogin = async (username, password, setLoginStatus, setWaiti
 export const authenticateStatus = () => {
     return secureLocalStorage.getItem("token") !== null;
 }
+

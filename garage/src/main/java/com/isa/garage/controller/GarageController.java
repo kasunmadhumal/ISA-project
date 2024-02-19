@@ -33,7 +33,6 @@ public class GarageController {
 
     @PostMapping("/update-timeslot")
     public ResponseEntity<Map<String, String>> addServiceBookingTimeslot() throws InterruptedException {
-
         int range = 7;
         List<AvailableTimeSlot> availableTimeSlots = new ArrayList<>(Arrays.asList(
                 AvailableTimeSlot.builder()

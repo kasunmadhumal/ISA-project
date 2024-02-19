@@ -25,6 +25,7 @@ const SignupScreen = () => {
 
 
   return ( 
+
     <>     
         <div className="signup-container">
             <div>
@@ -195,7 +196,6 @@ const SignupScreen = () => {
             </div>
         </div>
     </>
-
 )
 };
 export default SignupScreen;
