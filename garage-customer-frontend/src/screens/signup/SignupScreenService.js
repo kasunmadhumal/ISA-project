@@ -1,11 +1,13 @@
 import api from '../../utils/api';
 
+
+
 export const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
 
 export const createAccount = async (firstname, lastname, email, password, setSignupStatus, setWaiting, navigate) => {
-
+   
     api.post(`/api/v1/auth/register`,{
         "firstname": firstname,
         "lastname": lastname,

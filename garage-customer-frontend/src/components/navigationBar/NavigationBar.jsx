@@ -1,8 +1,9 @@
 import React from 'react';
-import { UserOutlined, ScheduleOutlined, CarOutlined, LinkedinOutlined, FacebookOutlined } from '@ant-design/icons';
+import { UserOutlined, ScheduleOutlined, CarOutlined, LinkedinOutlined, FacebookOutlined , LogoutOutlined} from '@ant-design/icons';
 import { Menu } from 'antd';
 import './NavigationBar.css';
 import { useNavigate } from 'react-router';
+import { logout } from './NavigationFBarService';
 
 
 
@@ -13,6 +14,9 @@ const NavigationBar = () => {
   const handleMenuItemClick = (key) => {
 
     switch(key.key) {
+        case 'logout-user':
+            logout(navigate);
+            break;
         case 'profile-management':
             navigate("/profile");
             break;
@@ -72,6 +76,13 @@ const NavigationBar = () => {
             </a>
           ),
           key: 'facebook',
+        },
+        {
+          label: '',
+          key: 'logout-user',
+          icon: <LogoutOutlined className='nav-bar-icon' style={{
+            fontSize: '20px',
+          }}/>
         },
       ];
 

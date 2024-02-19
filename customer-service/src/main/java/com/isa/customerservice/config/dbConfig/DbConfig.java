@@ -47,6 +47,4 @@ public class DbConfig extends AbstractCouchbaseConfiguration {
     }
 
 
-
-
 }
